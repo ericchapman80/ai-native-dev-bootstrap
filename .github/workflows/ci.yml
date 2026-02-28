@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  bootstrap-checks:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate shell scripts
+        run: bash -n bin/bootstrap scripts/*.sh
+
+      - name: Show bootstrap help
+        run: make help
+
+      - name: Dry-run bootstrap
+        run: make dry CONFIG=./config/config.ci.yaml
+
+      - name: Verify expected tools
+        run: make verify CONFIG=./config/config.ci.yaml

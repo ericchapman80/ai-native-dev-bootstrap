@@ -1,0 +1,126 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+SCRIPTS_DIR="$ROOT_DIR/scripts"
+DEFAULT_CONFIG_FILE="$ROOT_DIR/config/config.yaml"
+DEFAULT_PHASES=(0 1 2 3 4 5 6 99)
+PHASES_TO_RUN=()
+CONFIG_FILE="${BOOTSTRAP_CONFIG:-$DEFAULT_CONFIG_FILE}"
+DRY_RUN="${BOOTSTRAP_DRY_RUN:-false}"
+
+usage() {
+  cat <<EOF_USAGE
+bootstrap - modern engineering + AI-native macOS dev machine setup
+
+Usage:
+  bootstrap [options] <phase...>
+
+Phases:
+  0   preflight
+  1   foundation (macOS defaults)
+  2   homebrew + bundle
+  3   core dev tools (git, gh, vscode, extensions)
+  4   containers (colima + docker compose)
+  5   python (pyenv + poetry)
+  6   ai (ollama + models)
+  99  verify
+
+Options:
+  --config <path>     Config YAML (default: config/config.yaml)
+  --dry-run           Print what would happen, do not change system
+  --all               Run phases 0,1,2,3,4,5,6,99
+  --help, -h          Show help
+
+Env:
+  BOOTSTRAP_CONFIG=<path>
+  BOOTSTRAP_DRY_RUN=true|false
+
+Examples:
+  bootstrap --dry-run --all
+  bootstrap --config ./config/config.yaml 0 2 3
+  BOOTSTRAP_DRY_RUN=true bootstrap 1 2
+EOF_USAGE
+}
+
+is_valid_phase() {
+  local phase="$1"
+  case "$phase" in
+    0|1|2|3|4|5|6|99) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+if [[ $# -eq 0 ]]; then
+  usage
+  exit 1
+fi
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --config)
+      [[ $# -ge 2 ]] || { echo "ERROR: --config requires a path" >&2; exit 2; }
+      CONFIG_FILE="$2"
+      shift 2
+      ;;
+    --config=*)
+      CONFIG_FILE="${1#*=}"
+      shift
+      ;;
+    --dry-run)
+      DRY_RUN="true"
+      shift
+      ;;
+    --all)
+      PHASES_TO_RUN=("${DEFAULT_PHASES[@]}")
+      shift
+      ;;
+    --help|-h)
+      usage
+      exit 0
+      ;;
+    *)
+      if ! is_valid_phase "$1"; then
+        echo "ERROR: Unsupported phase '$1'. Valid phases: 0 1 2 3 4 5 6 99" >&2
+        exit 2
+      fi
+      PHASES_TO_RUN+=("$1")
+      shift
+      ;;
+  esac
+done
+
+if [[ ${#PHASES_TO_RUN[@]} -eq 0 ]]; then
+  echo "ERROR: No phases selected." >&2
+  usage
+  exit 2
+fi
+
+run_phase() {
+  local phase="$1"
+  local matches=()
+
+  shopt -s nullglob
+  matches=("$SCRIPTS_DIR/$(printf '%02d' "$phase")"_*.sh)
+  shopt -u nullglob
+
+  if [[ ${#matches[@]} -eq 0 ]]; then
+    echo "ERROR: No script found for phase ${phase}" >&2
+    exit 2
+  fi
+
+  echo
+  echo "=============================="
+  echo "Running phase ${phase}: $(basename "${matches[0]}")"
+  echo "Config: ${CONFIG_FILE}"
+  echo "Dry-run: ${DRY_RUN}"
+  echo "=============================="
+
+  BOOTSTRAP_CONFIG="${CONFIG_FILE}" \
+  BOOTSTRAP_DRY_RUN="${DRY_RUN}" \
+  bash "${matches[0]}"
+}
+
+for phase in "${PHASES_TO_RUN[@]}"; do
+  run_phase "$phase"
+done

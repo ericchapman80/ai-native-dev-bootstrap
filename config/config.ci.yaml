@@ -1,0 +1,17 @@
+# CI-specific config for GitHub Actions.
+# Keeps checks fast and avoids phases that depend on heavyweight local runtimes.
+
+user_full_name: "CI"
+user_email: "ci@example.com"
+projects_dir: "$HOME/projects"
+
+enable_phase_1_macos_defaults: "true"
+enable_phase_2_homebrew: "true"
+enable_phase_3_dev_tools: "true"
+enable_phase_4_containers: "false"
+enable_phase_5_python: "false"
+enable_phase_6_ai: "false"
+
+screenshots_dir: "$HOME/Screenshots"
+install_vscode: "false"
+install_vscode_extensions: "false"

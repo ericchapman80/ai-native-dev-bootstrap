@@ -1,0 +1,38 @@
+# Example configuration for the macOS + AI-native bootstrap.
+# Copy this file to config/config.yaml and adjust values for your machine.
+
+# General
+user_full_name: "Your Name"
+user_email: "you@example.com"
+projects_dir: "$HOME/projects"
+
+# Phase toggles
+enable_phase_1_macos_defaults: "true"
+enable_phase_2_homebrew: "true"
+enable_phase_3_dev_tools: "true"
+enable_phase_4_containers: "true"
+enable_phase_5_python: "true"
+enable_phase_6_ai: "true"
+
+# Phase 1 options
+screenshots_dir: "$HOME/Screenshots"
+
+# Phase 3 options
+install_vscode: "true"
+install_vscode_extensions: "true"
+
+# Phase 4 options (Colima)
+colima_cpu: "6"
+colima_memory_gb: "12"
+colima_disk_gb: "80"
+
+# Phase 5 options (Python)
+pyenv_python_version: "3.12.12"
+set_pyenv_global: "true"
+poetry_in_project_venv: "true"
+
+# Phase 6 options (AI)
+auto_start_ollama: "true"
+ollama_models:
+  - "llama3:8b"
+  - "nomic-embed-text"
