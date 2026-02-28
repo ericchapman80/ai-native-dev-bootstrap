@@ -1,8 +1,9 @@
 # ai-native-dev-bootstrap
 
-[![CI](https://github.com/ericchapman80/ai-native-dev-bootstrap/actions/workflows/ci.yml/badge.svg)](https://github.com/ericchapman80/ai-native-dev-bootstrap/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/badge/release-pending-lightgrey.svg)](https://github.com/ericchapman80/ai-native-dev-bootstrap/releases)
-[![License](https://img.shields.io/github/license/ericchapman80/ai-native-dev-bootstrap.svg)](https://github.com/ericchapman80/ai-native-dev-bootstrap/blob/master/LICENSE)
+[![CI](https://github.com/ericchapman80/ai-native-dev-bootstrap/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ericchapman80/ai-native-dev-bootstrap/actions/workflows/ci.yml)
+![Platform](https://img.shields.io/badge/platform-macOS-blue)
+![Shell](https://img.shields.io/badge/shell-bash-black)
+[![License](https://img.shields.io/github/license/ericchapman80/ai-native-dev-bootstrap.svg)](https://github.com/ericchapman80/ai-native-dev-bootstrap/blob/main/LICENSE)
 
 A phase-based macOS bootstrap for a modern engineering workstation with local AI tooling. It is designed to be inspectable, rerunnable, and conservative by default.
 
@@ -78,7 +79,7 @@ make dry CONFIG=./config/config.ci.yaml
 make verify CONFIG=./config/config.ci.yaml
 ```
 
-The badges currently target `ericchapman80/ai-native-dev-bootstrap`. The release badge is a placeholder until the first GitHub Release is published.
+The badges currently target `ericchapman80/ai-native-dev-bootstrap`. The CI badge tracks the `main` branch. Add a release badge after the first GitHub Release is published.
 
 ## Make Targets
 
