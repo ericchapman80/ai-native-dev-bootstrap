@@ -4,6 +4,7 @@
 ![Platform](https://img.shields.io/badge/platform-macOS-blue)
 ![Shell](https://img.shields.io/badge/shell-bash-black)
 [![License](https://img.shields.io/github/license/ericchapman80/ai-native-dev-bootstrap.svg)](https://github.com/ericchapman80/ai-native-dev-bootstrap/blob/main/LICENSE)
+[![Sponsor](https://img.shields.io/badge/sponsor-ericchapman80-ef4b8f)](https://github.com/sponsors/ericchapman80)
 
 A phase-based macOS bootstrap for a modern engineering workstation with local AI tooling. It is designed to be inspectable, rerunnable, and conservative by default.
 
@@ -101,6 +102,10 @@ The scripts read `config/config.yaml` by default and fall back to `config/config
 - runtime sizing: `colima_cpu`, `colima_memory_gb`, `colima_disk_gb`
 - Python behavior: `pyenv_python_version`, `set_pyenv_global`, `poetry_in_project_venv`
 - AI behavior: `auto_start_ollama`, `ollama_models`
+
+## Support
+
+If this project saves you time, support its maintenance via [GitHub Sponsors for `ericchapman80`](https://github.com/sponsors/ericchapman80).
 
 ## License
 
