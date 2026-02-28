@@ -1,8 +1,8 @@
 # ai-native-dev-bootstrap
 
-[![CI](https://github.com/chapman/ai-native-dev-bootstrap/actions/workflows/ci.yml/badge.svg)](https://github.com/chapman/ai-native-dev-bootstrap/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/github/v/release/chapman/ai-native-dev-bootstrap?display_name=tag)](https://github.com/chapman/ai-native-dev-bootstrap/releases)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![CI](https://github.com/ericchapman80/ai-native-dev-bootstrap/actions/workflows/ci.yml/badge.svg)](https://github.com/ericchapman80/ai-native-dev-bootstrap/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/badge/release-pending-lightgrey.svg)](https://github.com/ericchapman80/ai-native-dev-bootstrap/releases)
+[![License](https://img.shields.io/github/license/ericchapman80/ai-native-dev-bootstrap.svg)](https://github.com/ericchapman80/ai-native-dev-bootstrap/blob/master/LICENSE)
 
 A phase-based macOS bootstrap for a modern engineering workstation with local AI tooling. It is designed to be inspectable, rerunnable, and conservative by default.
 
@@ -78,7 +78,7 @@ make dry CONFIG=./config/config.ci.yaml
 make verify CONFIG=./config/config.ci.yaml
 ```
 
-The badge URLs assume the repository will live at `chapman/ai-native-dev-bootstrap`. If you publish under a different owner, update those badge links.
+The badges currently target `ericchapman80/ai-native-dev-bootstrap`. The release badge is a placeholder until the first GitHub Release is published.
 
 ## Make Targets
 
