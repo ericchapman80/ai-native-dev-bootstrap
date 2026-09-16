@@ -1,7 +1,7 @@
 BOOTSTRAP ?= ./bin/bootstrap
 CONFIG ?= ./config/config.yaml
 
-.PHONY: help dry all p0 p1 p2 p3 p4 p5 p6 verify
+.PHONY: help dry all p0 p1 p2 p3 p4 p5 p6 verify privacy
 
 help:
 	@$(BOOTSTRAP) --help
@@ -35,3 +35,6 @@ p6:
 
 verify:
 	@$(BOOTSTRAP) --config $(CONFIG) 99
+
+privacy:
+	@bash tests/public-privacy.sh

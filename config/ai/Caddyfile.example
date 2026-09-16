@@ -1,0 +1,43 @@
+{
+    admin off
+    auto_https off
+}
+
+(ollama_api_routes) {
+    @metadata method GET
+    @metadata path /api/version /api/tags /api/ps
+    reverse_proxy @metadata http://127.0.0.1:11434
+
+    @show method POST
+    @show path /api/show
+    request_body @show {
+        max_size 64KB
+    }
+    reverse_proxy @show http://127.0.0.1:11434
+
+    @inference method POST
+    @inference path /api/chat /api/generate /api/embed
+    request_body @inference {
+        max_size 1MB
+    }
+    reverse_proxy @inference http://127.0.0.1:11434 {
+        transport http {
+            dial_timeout 2s
+            response_header_timeout 600s
+        }
+    }
+}
+
+https://ai.example.internal:18443 {
+    bind 192.0.2.12
+    tls "/path/outside/git/ai.example.internal.crt" "/path/outside/git/ai.example.internal.key"
+
+    @unauthorized not expression {http.request.header.Authorization} == "Bearer REPLACE_WITH_RUNTIME_SECRET"
+    respond @unauthorized 401
+
+    @wrong_source not remote_ip 192.0.2.11
+    respond @wrong_source 403
+
+    import ollama_api_routes
+    respond 404
+}

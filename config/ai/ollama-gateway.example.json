@@ -1,0 +1,47 @@
+{
+  "capability": "ollama-gateway",
+  "stage": "template",
+  "backend": "http://127.0.0.1:11434",
+  "logicalName": "ai.example.internal",
+  "port": 18443,
+  "bindAddress": "192.0.2.12",
+  "verifiedSource": "192.0.2.11",
+  "sourceEvidence": "record observed peer address before applying firewall rules",
+  "firewallReviewComplete": false,
+  "tls": "internal-ca-required",
+  "caTrustConfirmed": false,
+  "authentication": "bearer-over-tls",
+  "allow": [
+    "GET /api/version",
+    "GET /api/tags",
+    "GET /api/ps",
+    "POST /api/show",
+    "POST /api/chat",
+    "POST /api/generate",
+    "POST /api/embed"
+  ],
+  "denyByDefault": true,
+  "logBodies": false,
+  "maxUpstreamConnections": 1,
+  "bodyLimits": {
+    "metadata": 0,
+    "show": 65536,
+    "chat": 1048576,
+    "generate": 1048576,
+    "embed": 1048576,
+    "visionEnabled": false
+  },
+  "timeouts": {
+    "dialSeconds": 2,
+    "metadataSeconds": 15,
+    "responseHeaderSeconds": 600,
+    "streamTotalSeconds": 0,
+    "streamIdleSeconds": 300,
+    "nonStreamingSeconds": 600
+  },
+  "consumers": {
+    "webui": "initial-separate-credential",
+    "agent": "deferred-separate-credential",
+    "rag": "deferred-separate-credential"
+  }
+}

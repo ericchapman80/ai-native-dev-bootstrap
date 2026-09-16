@@ -1,3 +1,16 @@
 .DS_Store
 *.log
 config/config.local.yaml
+
+# Local/private split workspaces and generated operational material.
+_private/
+*.local.json
+*.local.yaml
+*.local.yml
+
+# Runtime secrets and certificates must stay outside the public repo.
+*.key
+*.csr
+*.crt
+*.p12
+*.pfx

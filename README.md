@@ -6,7 +6,14 @@
 [![License](https://img.shields.io/github/license/ericchapman80/ai-native-dev-bootstrap.svg)](https://github.com/ericchapman80/ai-native-dev-bootstrap/blob/main/LICENSE)
 [![Sponsor](https://img.shields.io/badge/sponsor-ericchapman80-ef4b8f)](https://github.com/sponsors/ericchapman80)
 
-A phase-based macOS bootstrap for a modern engineering workstation with local AI tooling. It is designed to be inspectable, rerunnable, and conservative by default.
+A phase-based bootstrap for a modern engineering workstation with local AI
+tooling. It is designed to be inspectable, rerunnable, conservative by default,
+and safe to publish without exposing a real local network.
+
+This public repository carries reusable patterns, examples, and safety checks.
+Live machine inventory, internal DNS, private IP assignments, GitOps URLs,
+certificates, credentials, and dedicated-agent runbooks belong in a private
+site repository. See [Repository Split](docs/repository-split.md).
 
 ## Quickstart
 
@@ -28,6 +35,8 @@ If you prefer to edit the checked-in default file directly, `config/config.yaml`
 - System-wide preference changes are limited to phase 1 and are explicit in the docs.
 - If `yq` is unavailable, the scripts fall back to a built-in parser for the simple YAML used here.
 - Homebrew, Colima, pyenv, and Ollama phases only run when their phase toggle is enabled in config.
+- Public examples use placeholder domains and documentation IP ranges.
+- Run `make privacy` before publishing new docs or templates.
 
 ## Phase List
 
@@ -41,6 +50,9 @@ If you prefer to edit the checked-in default file directly, `config/config.yaml`
 - `99`: non-destructive verification
 
 Phase details, verification commands, and rollback notes live in [docs/PHASES.md](docs/PHASES.md).
+The [local AI gateway template](docs/local-ai-gateway-template.md) documents a
+reusable pattern for putting authentication and TLS in front of a loopback-only
+Ollama runtime.
 
 ## Examples
 
@@ -78,6 +90,7 @@ GitHub Actions runs on `macos-latest` and exercises the bootstrap in safe mode:
 make help
 make dry CONFIG=./config/config.ci.yaml
 make verify CONFIG=./config/config.ci.yaml
+make privacy
 ```
 
 The badges currently target `ericchapman80/ai-native-dev-bootstrap`. The CI badge tracks the `main` branch. Add a release badge after the first GitHub Release is published.
@@ -89,6 +102,7 @@ make help
 make dry
 make all
 make verify
+make privacy
 ```
 
 `make all` runs the live bootstrap. Use `make dry` first unless you have already reviewed the phase effects.
